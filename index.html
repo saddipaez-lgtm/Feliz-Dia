@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Gabi 💚</title>
+    <style>
+        body { 
+            margin: 0; 
+            background-color: #f5f2eb; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            font-family: 'Georgia', serif; 
+            overflow: hidden; 
+        }
+        
+        /* Contenedor del Árbol */
+        .tree-container { 
+            width: 250px; 
+            height: 250px; 
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiaQaumdHT2-jeN7zkpMulCeFRVPTXW63vvkY4eAcsfw&s=10'); 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center; 
+            margin-bottom: 10px;
+        }
 
+        h1 { 
+            color: #2e7d32; 
+            letter-spacing: 5px; 
+            margin-bottom: 30px; 
+            font-weight: normal;
+        }
+
+        /* Diseño de la Carta/Sobre */
+        .envelope-wrapper {
+            cursor: pointer;
+            perspective: 1000px;
+            z-index: 10;
+        }
+
+        .envelope { 
+            width: 120px; 
+            height: 80px; 
+            background: #dcc5a1; 
+            border-radius: 4px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .seal {
+            width: 35px;
+            height: 35px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border: 2px solid #388e3c;
+            font-size: 20px;
+        }
+
+        .vibrate { animation: shake 0.7s infinite; }
+        @keyframes shake { 
+            0%, 100% { transform: rotate(0deg); } 
+            25% { transform: rotate(3deg); } 
+            75% { transform: rotate(-3deg); } 
+        }
+
+        /* Modal del Mensaje */
+        #modal { 
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 85%; 
+            max-width: 320px; 
+            background: white; 
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4); 
+            text-align: center; 
+            z-index: 1000; 
+            border-top: 6px solid #4caf50; 
+        }
+
+        .show { display: block !important; animation: popUp 0.4s ease-out; }
+        @keyframes popUp { 
+            from { opacity: 0; transform: translate(-50%, -60%); } 
+            to { opacity: 1; transform: translate(-50%, -50%); } 
+        }
+
+        /* Lluvia de corazones */
+        .heart { 
+            position: fixed; 
+            color: #4caf50; 
+            top: -10%; 
+            z-index: 500; 
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite; 
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) translateX(30px) rotate(360deg); }
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="musica">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="tree-container"></div>
+    <h1>GABI</h1>
+
+    <div class="envelope-wrapper vibrate" id="contenedor" onclick="abrirTodo()">
+        <div class="envelope">
+            <div class="seal">💚</div>
+        </div>
+        <p style="color: #999; font-size: 12px; margin-top: 15px;">Toca para abrir</p>
+    </div>
+
+    <div id="modal">
+        <h2 style="color: #1b5e20;">Para Gabi</h2>
+        <p>Nuestra amistad es como este árbol: crece cada día más fuerte y no necesita flores para ser especial.</p>
+        <p><b>¡Gracias por estar siempre!</b></p>
+        <button onclick="location.reload()">Cerrar x</button>
+    </div>
+
+    <script>
+        function crearCorazon() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💚';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        function abrirTodo() {
+            // Reproducir Audio
+            const audio = document.getElementById("musica");
+            audio.volume = 1.0;
+            audio.play();
+
+            // Mostrar Modal y detener vibración
+            document.getElementById("modal").classList.add('show');
+            document.getElementById("contenedor").classList.remove('vibrate');
+
+            // Iniciar lluvia de corazones
+            setInterval(crearCorazon, 300);
+        }
+
+        window.onload = () => {
+            alert("Hola Gabi, ¡tienes un mensaje pendiente! Toca el corazón.");
+        };
+    </script>
+</body>
+</html>
